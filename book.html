@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message by Khushal Rohella</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            min-height: 100dvh;
+            perspective: 1000px;
+            font: 1em/1.4 "Poppins", sans-serif;
+            overflow: hidden;
+            color: hsl(180 68% 5%);
+            background-image: radial-gradient(circle farthest-corner at 50% 50%,
+                    hsl(187 20% 88%) 30%,
+                    hsl(149 20% 94%) 100%);
+        }
+      
+
+        .book {
+            position: relative;
+            display: flex;
+            margin: auto;
+            width: 42cqmin;
+            /* Increased width */
+            pointer-events: none;
+            transform-style: preserve-3d;
+            transition: translate 1s;
+            translate: calc(min(var(--c), 1) * 50%) 0%;
+            rotate: 1 0 0 30deg;
+        }
+
+        .page {
+            --thickness: 4;
+            flex: none;
+            display: flex;
+            width: 100%;
+            font-size: 2.2cqmin;
+            /* Slightly increased font size */
+            pointer-events: all;
+            user-select: none;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transition: transform 1s,
+                rotate 1s ease-in calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+            translate: calc(var(--i) * -100%) 0px 0px;
+            transform: translateZ(calc((var(--c) - var(--i) - 0.5) * calc(var(--thickness) * 0.23cqmin)));
+            rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+        }
+
+        .front,
+        .back {
+            position: relative;
+            flex: none;
+            width: 100%;
+            backface-visibility: hidden;
+            overflow: hidden;
+            background-color: #fff;
+            translate: 0px;
+        }
+
+        .back {
+            translate: -100% 0;
+            rotate: 0 1 0 180deg;
+        }
+
+        .book {
+            counter-reset: page -1;
+        }
+
+        .book a {
+            color: inherit;
+        }
+
+        .page {
+            box-shadow: 0em 0.5em 1em -0.2em #00000020;
+        }
+
+        .front,
+        .back {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-between;
+            padding: 2em;
+            border: 1px solid #0002;
+        }
+
+        .front:has(img),
+        .back:has(img) {
+            padding: 0;
+        }
+
+        .front img,
+        .back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+       .front .frontImageCover{
+            height: 300px;
+            margin-top: 12px;
+        }
+    
+
+        .front::after,
+        .back::after {
+            position: absolute;
+            bottom: 1em;
+            counter-increment: page;
+            content: counter(page) ".";
+            font-size: 0.8em;
+        }
+
+        .cover::after {
+            content: "";
+        }
+
+        .front::after {
+            right: 1em;
+        }
+
+        .front {
+            background: linear-gradient(to left, #f7f7f7 80%, #eee 100%);
+            border-radius: 0.1em 0.5em 0.5em 0.1em;
+        }
+
+        .back::after {
+            left: 1em;
+        }
+
+        .back {
+            background-image: linear-gradient(to right, #f7f7f7 80%, #eee 100%);
+            border-radius: 0.5em 0.1em 0.1em 0.5em;
+        }
+
+        .cover {
+            background: radial-gradient(circle farthest-corner at 80% 20%,
+                    hsl(150 80% 20% / 0.3) 0%,
+                    hsl(170 60% 10% / 0.1) 100%),
+                hsl(231, 32%, 29%) url("./cover.jpg") 50% / cover;
+            color: hsl(0, 100%, 30%);
+            /* Dark red text color for cover page */
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-bottom: 1px;
+            color: hsl(0, 100%, 30%);
+            /* Dark red heading color */
+        }
+
+        p {
+            margin-top: 1px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: hsl(0, 100%, 30%);
+            /* Dark red text color for paragraphs */
+        }
+
+        .front,
+        .back {
+            padding: 1.5em;
+            color: hsl(0, 100%, 30%);
+            /* Dark red text color for front and back pages */
+        }
+
+        .book {
+            width: 40cqmin;
+            /* Slightly increased width */
+        }
+
+        .page {
+            font-size: 2cqmin;
+            /* Slightly increased font size */
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .front,
+        .back {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 1.5em;
+        }
+
+        h2 {
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+
+        body {
+            margin: 0;
+            display: flex;
+            min-height: 100dvh;
+            perspective: 1000px;
+            font: 1em/1.4 "Poppins", sans-serif;
+            overflow: hidden;
+            color: hsl(180 68% 5%);
+            background: linear-gradient(to right, #ff7eb9, #ff65a3, #ff165d);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Emoji Animation */
+        .emoji {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0;
+            animation: floatEmojis 6s ease-in-out infinite;
+        }
+
+        @keyframes floatEmojis {
+            0% {
+                transform: translateY(100px);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-100px) rotate(20deg);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: translateY(100px);
+                opacity: 1;
+            }
+        }
+
+        /* Add random timing for each emoji */
+        .emoji:nth-child(1) {
+            animation-delay: 0s;
+            left: 10%;
+        }
+
+        .emoji:nth-child(2) {
+            animation-delay: 1s;
+            left: 20%;
+        }
+
+        .emoji:nth-child(3) {
+            animation-delay: 2s;
+            left: 30%;
+        }
+
+        .emoji:nth-child(4) {
+            animation-delay: 3s;
+            left: 40%;
+        }
+
+        .emoji:nth-child(5) {
+            animation-delay: 4s;
+            left: 50%;
+        }
+
+        .emoji:nth-child(6) {
+            animation-delay: 5s;
+            left: 60%;
+        }
+
+        .emoji:nth-child(7) {
+            animation-delay: 6s;
+            left: 70%;
+        }
+
+        .emoji:nth-child(8) {
+            animation-delay: 7s;
+            left: 80%;
+        }
+
+        .emoji:nth-child(9) {
+            animation-delay: 8s;
+            left: 90%;
+        }
+        .byText{
+            text-align: center;
+        }
+        .byText p{
+            color: white;
+        }
+        .byText h3{
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="book">
+        <div class="page">
+            <div class="front cover">
+
+                
+                <h1 style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            ">
+                    A Message for You🤍
+                </h1>
+
+               
+                <p style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            ">
+                    2025.<br />Tanya❤️ Special Edition
+                </p>
+                <img class="frontImageCover" src="./2.jpg" alt="">
+                <div class="byText">
+
+                    <p>By </p>
+                    <p>Khushal</p>
+                   
+                </div>
+            </div>
+            <div class="back">
+                <h2>A Special Beginning ❤✨</h2>
+
+                <p>Kayi vaar kuchh lok bina kise umeed saade jeevan vich aunde ne, par oh apna ehsaas chhad jaande ne. Tusi ohhi khas lokan vicho ik ho jo har pal nu thoda hor khaas bana dinde ho.
+                    Pehli vaar gal karke hi, tuhadi dildari, tuhadi muskurahat, ate tuhadi gallan bohot vakhri laggiyan. Tusi bina kise koshish de lokan de chehre te hassi le aunde ho.
+                    Eh sirf shabdaan da ikath nahi, sagon ek chhoti jihi koshish hai tuhanu dasan di ki tusi mere layi bohot khaas ho.
+                    So, eh saade layi—saadiyan gallan, saada rishta, ate oh sohniyan yaadan jo hunne auniyaan ne! ❤</p>
+
+                <p>
+                     <br /> ....
+                </p>
+            </div>
+        </div>
+        <!--2nd page-->
+        <div class="page">
+            <div class="front">
+                <h2>From Strangers to Something Special ❤✨</h2>
+                <p>
+                    Eh soch ke hi ajeeb lagda hai ki kujh din pehlan tak main tuhanu jaanda vi nahi si. bgmi te tuhade naal milna ek oh pal si jo shayad kismat ne likheya si, ate main hamesha is layi shukar guzar rahunga.
+                    Pehli vaar, main sure nahi si ki asi kivein connect karange, asi kis bare gall karange, ja tusi kivein insaan honge. Par hun, tuhade naal samah guzar ke, ek bohot khaas gal samajh aayi—
+                    Tusi kamaal de ho. 💖 Tuhadi gallan, tuhadi dildari, ate oh tareeka jis naal tusi menu hasa dinde ho, pehlan hi mere dil vich apni jagah bana chukka hai. Main kabhi umeed nahi kitti si ki main kise tuhade varge bande nu milanga, par hun soch nahi sakda ki tusi mere jeevan vich na hovo.
+                    Shayad eh kismat si, ja sirf kismat da ek changa khel—par jo vi si, main khush haan ki eh menu tuhade tak le aaya. 
+                    💕
+                </p>
+            </div>
+            <div class="back">
+                <img src="./1.jpg" alt="Img 1" />
+            </div>
+        </div>
+        <!--3rd page-->
+        <div class="page">
+            <div class="front">
+                <h2>The Magic of You ✨💖</h2>
+                <p>
+                    Tuhade vich ek ajeebi sa jaadu hai, ek sohnaapan jo shabdaan vich bayan karna muskil hai. Eh tuhadi akhaan di chamak vich hai, tuhadi muskurahat di garmi vich hai, ate oh tareeka jis naal tusi har pal nu roshan kar dinde ho. Tuhadi har chhoti chhoti gal ena perfect, ena hiraan kar den wali lagdi hai ki main aksar sochda haan—
+                   Ki tusi kisi shahkar vang banaye gaye ho? Jiven lagda hai ki kainaat ne bade pyaar naal, bade dhyaan naal tuhanu tarash ke banaya hove, sirf is layi taan ki duniya thodi hor roshan ho jave. Ate yakin mano, tusi eh har din karde ho. 💕
+                  Tuhadi maujoodgi ik mithi dhun vang lagdi hai—shanti bhari, par hamesha yaad rehn wali. Tusi apne aap nu jiven rakhde ho, tuhade dil di nek kamayi, ate tuhadi rooh di pavitrata tuhanu hor vi khaas bana dinde ne. Eh sirf tuhadi sohni surat bare nahi, eh tuhadi asal khoobsurti bare hai jo tuhade andar hai.
+                  Har vaar jadon main tuhanu vekhda haan, main ehsoos karda haan ki kuchh cheezaan asal vich jaadui hundiyan ne, ate tusi bina kisi shak de ohna vicho ik ho. ✨
+                </p>
+            </div>
+            <div class="back">
+                <h2>The Strength Within You 💫✨</h2>
+                <p>
+                    Tuhadi sohbat sirf tuhadi khubsurti tak simit nahi, jo cheez sab ton vadh chamakdi hai oh tuhadi mehnat, samarpan, ate junoon hai. Tusi sirf vekhan layi tareef jog nahi—tusi ek prerna ho. Jis tareeke naal tusi apne lakshya di taraf dhyan lagake, pure mann naal mehnat karde ho, oh menu tuhadi aur vadh izzat karan layi majboor kar dinda hai.
+                       Tusi asal vich ek leader ho.Tuhadi self-confidence, tuhadi dildari, ate tuhadi himmat tuhanu sab ton vakhra banaundi hai. Tusi sirf kise diyaan raahan te nahi turde—tusi apni raah aap banaunde ho. Tuhadi lagan vekh ke eh samajh aunda hai ki asli khubsurti sirf shakal vich nahi, balki oh chingaari vich hai jo tuhade andar baldi hai. Ate eh hi tuhanu asal vich kamaal banaunda hai. 💖✨
+                       Tuhade layi koi vi chunauti waddi nahi, koi vi sapna durr nahi. Tusi apne aale-duaale de lokan nu prerna dinde ho ki oh vadhia banan, vadde sapne vekhan, ate aap te vishwas rakhkan. Tuhadi tarakki ate tuhadi safalta vekh ke, main garv mehsoos karda haan ke tusi meri JAAN te JAHAAN ho. 🌟~
+
+                </p>
+            </div>
+        </div>
+        <!--4th page-->
+        <div class="page">
+            <div class="front">
+                <h2>The Best Part of My Day🤞💖</h2>
+                <p>
+                    Tuhade naal gallan karna mere din da sab ton vadia hissa ban chukya hai. Har vaar jadon tuhadi koi message aundi hai, main apne aap muskara dinda haan—jiven ek chhoti ji khushi di chingaari. Chahe mera din kiven vi lang rha hove, sadiyaan gallan sab kuchh hor halka ate roshan bana dindiyaan ne.
+                    Tusi sadeeyan sadharan palan nu vi khaas banan da ek anokha tareeka rakhde ho.
+                 Eh sirf tuhadi sohni surat bare nahi, eh tuhadi gallan di garmi, tuhadi dildari ate tuhade andaaz di baat hai. Tuhadi gallan vich ik jaadu hai jo menu aram mehsoos karaunda hai, ate tuhadi maujoodgi hi khushi le aundi hai.
+                   Main kabhi sochya vi nahi si ki ek gallbaat ena khas ho sakdi hai, par tuhade naal, eh asal vich hundi hai. 
+                </p>
+            </div>
+            <div class="back">
+                <img src="./3.jpg" alt="Img 1" />
+            </div>
+        </div>
+        <!--5th page-->
+        <div class="page">
+            <div class="front">
+                <h1>A Wish from the Heart 💫💖</h1>
+                <p>
+                    Kayi vaar main sochda haan ki kaash main tuhanu roz asli zindagi vich mil sakda, sirf oh muskurahat vekhan layi jo mere din nu roshan kar dindi hai, ate oh awaaz sunan layi jo sab kuchh halka mehsoos karaundi hai. Shayad eh sirf ik sapna hai, par eh soch mere dil vich hamesha rehn di hai.
+                  Hale sanu ik duje nu jaane hoya zyada samaa nahi hoya, par main umeed rakhda haan ki tusi menu nahi bhuloge. Sade oh pal, sadiyaan gallan—shayad tuhanu ehna di ehsaas na hove, par mere layi oh bohot maayne rakhde ne.
+                   Chahe jo vi hove, main tuhade layi hamesha khushi, shanti, ate oh sab kuchh chahunga jo tusi deserve karde ho. 💕
+                                  </p>
+            </div>
+            <div class="back">
+                <h1>Always Here for You 💖✨</h1>
+                <p>
+                    Tusi ek prerna ho, ate main chahunda haan ki tusi hamesha eh jaano ki main hamesha tuhade naal haan, chahe jo vi hove. Je tusi kadey kise di lor mehsoos karo—kise jo tuhadi sun sake, tuhadi madad kar sake, ya sirf tuhanu hasa sake—main sirf ek message di doori te haan.
+
+Mera samah hamesha tuhade layi hai, jadon vi tuhanu lor hove.
+
+Zindagi hamesha ek jahi nahi hundi, par main umeed karda haan ki tusi kadey vi akelay mehsoos na karo. Chahe din changa hove ya okha, main hamesha tuhadi hausla-afzai karan layi, tuhanu yaad dilaun layi ki tusi kamaal ho.
+
+Tusi sirf khushi deserve karde ho, ate je main os khushi da ek chhota hissa bann sakda haan, taan eh mere layi maan wali gal hovegi. Chahe zindagi sanu kithe vi le jave, bas eh yaad rakhna—tuhade kol hamesha koi hovega jo tuhadi parvah karda hai, jo tuhade te dilon vishwas rakhda hai. 
+                </p>
+            </div>
+        </div>
+        <!--6th page-->
+        <div class="page">
+            <div class="front">
+                <h2>The Beauty of You ✨💖</h2>
+                <p>
+                    Ki asi ik pal lai sirf eh tasleem kar sakde haan ki tusi bina kise mehnat de har cheez vich kamaal lagde ho? Gal sirf kapde di nahi—oh atmak vishvas, oh grace, ate oh tareeka jis naal tusi apne aap nu rakhde ho, jo tuhanu asal vich bhul na jog banaunda hai.
+
+Tuhadi maujoodgi sirf nazar aundi nahi, oh dil vi jeet lendi hai.
+
+Tusi ik ajeebi jaadu rakhde ho jo lokan nu apne val khed lenda hai—shayad eh tuhadi elegance hove, tuhadi dildari, ja sirf oh chamak jo tusi kise vi jagah vich le aunde ho. Jo vi hai, eh bina kisi shak de khas hai, ate tuhanu har tareeke naal perfect banaunda hai.
+
+Par tuhadi khubsurti ton vi vad, tuhadi dildari ate tuhadi gallan jis tarah lokan nu khaas mehsoos karaundiyan ne, oh tuhanu sab ton vakhra banaundiyan ne. Tusi positivity di roshni ho, ate tuhadi energy bohot hi anmol hai.
+
+Chahe tusi kithe vi hovo, jo vi kar rahe hovo, tusi hamesha ik ehsaas chhad jaande ho. Tusi sirf sohni nahi—tusi lajawab ho. 💖
+
+                </p>
+            </div>
+            <div class="back">
+                <h2>Absolutely Breathtaking ✨💖</h2>
+                <p>
+                    Jede vi cheez tusi pehndey ho, tusi bilkul dekhke jawaan kar dene ho. Eh sirf tuhadi sohbat bare nahi—oh tareeka jis naal tusi apne aap nu atmak vishwas ate grace naal rakhde ho, jo tuhanu asal vich ek ajeebi magnet bana dinda hai.
+
+Main tuhadi izzat karan layi puri tarah hairan haan.
+
+Tuhadi maujoodgi hi kise vi jagah nu roshan kar sakdi hai, ate tuhadi energy bas magnet di tarah hai. Tusi jiven chalde ho, tuhadi muskurahat, ate tuhadi tareeka jis naal tusi lokan nu aram mehsoos karaunde ho—eh sab tuhade be-jaz charm da hissa hai.
+
+Tusi sirf lokan di nazar nahi modde—tusi hamesha ek gehra asar chhadd jaande ho. Tuhade vich kuchh aisa hai jo bina kisi koshish de lokan nu apne val khed lenda hai, te tusi dekh ke turh jaane da dil nahi kar sakda.
+
+Tusi sirf sohni nahi—tusi ek kaam da kala ho, andar ate bahar dono. 💕✨
+
+                </p>
+            </div>
+        </div>
+        <!--7th page-->
+        <div class="page">
+            <div class="front">
+                <h2>Grateful for You🌹❤</h2>
+                <p>
+                    Main sirf eh kehna chahunda haan ki main tuhadi kitni kadar karda haan. Shuru ton hi, tusi ek bohot khaas insaan ho—ik insaan jinu main shabdaan naal bayan nahi kar sakda.
+
+Tuhanu milna, chahe sirf thode samay layi hi si, mere layi ek tohfa si.
+
+Tuhadi dildari, tuhadi maujoodgi, ate oh tareeka jis naal tusi har gallbaat nu khaas bana dinde ho, eh sab mere layi bohot maayne rakhda hai. Main shukar guzar haan ki sadi raah mil gayi, ate chahe jo vi future vich hove, main hamesha tuhade layi shukriya ada karunga.
+
+Kuchh lok bina koyi koshish de saddiyan yaadan chhad jaande ne—ate tusi ohna vichon ik ho. 💕
+
+                </p>
+            </div>
+            <div class="back">
+                <h2>Will You Be Mine? ❤✨</h2>
+                <p>Jadon to asi gallan shuru kitiyaan, tusi mere zehan vich sab ton vadhia tareeke naal rahe ho. Tuhadi dildari, tuhadi khubsurti, tuhadi energy—tuhade baare har cheez mere layi bohot khaas hai.
+
+                    Tusi mere duniya nu roshan kar dinde ho, mere dinnu changa bana dinde ho, ate mere dil nu thoda hor bhareya hoya mehsoos karwande ho.
+                    
+                    Main nahi jaanda ki future vich ki hovega, par ik gal zaroor jaanda haan—main chahunda haan ki tusi mere naal hovo. Ta, eh mere dil ton sawaal hai…
+                    
+                    Ki tusi mere ho sakde ho? 💖 </p>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="front">
+                <img src="./4.jpg" alt="Img 1" />
+            </div>
+            <div class="back cover byText">
+                <h3>Cutest Queen</h3>
+                <p>
+                    Content:By Khushal Rohella<br /><a href="" target="_blank" rel="nofollow"></a>
+
+                    <br />
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="emoji">❤‍🔥</div>
+    <div class="emoji">🫶🏻</div>
+    <div class="emoji">❤</div>
+    <div class="emoji">😘</div>
+    <div class="emoji">👨‍❤️‍💋‍👨</div>
+    <div class="emoji">💓</div>
+    <div class="emoji">❣</div>
+    <div class="emoji">💘</div>
+    <div class="emoji">💖</div>
+    <div class="emoji">💙</div>
+    <div class="emoji">💚</div>
+    <div class="emoji">🥰</div>
+    <div class="emoji">💗</div>
+
+    <script>
+        const flipBook = (elBook) => {
+            elBook.style.setProperty("--c", 0); // Set current page
+            elBook.querySelectorAll(".page").forEach((page, idx) => {
+                page.style.setProperty("--i", idx);
+                page.addEventListener("click", (evt) => {
+                    if (evt.target.closest("a")) return;
+                    const curr = evt.target.closest(".back") ? idx : idx + 1;
+                    elBook.style.setProperty("--c", curr);
+                });
+            });
+        };
+
+        document.querySelectorAll(".book").forEach(flipBook);
+
+    </script>
+
+</body>
+
+</html>
